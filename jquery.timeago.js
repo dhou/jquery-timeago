@@ -88,7 +88,9 @@
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
       s = s.replace(/([\+-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
-      return new Date(s);
+      var t = new Date(s);
+      t.setTime(t.getTime() - t.getTimezoneOffset() * 60 * 1000);
+      return t;  
     },
     datetime: function(elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
